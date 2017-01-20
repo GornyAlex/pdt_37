@@ -12,6 +12,9 @@ public class CalculateDistance {
 
     System.out.println("Растояние между точками с координатами " + p1.x + "," + p1.y + " и " + p2.x + "," + p2.y + " равно " + distance(p1,p2));
 
+    // using distance method from class Point
+    System.out.println("Растояние между точками с координатами " + p1.x + "," + p1.y + " и " + p2.x + "," + p2.y + " равно " + p1.distance(p2));
+
   }
 
   public static double distance(Point p1, Point p2) {
