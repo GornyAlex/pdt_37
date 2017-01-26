@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 /**
  * Created by Alexander Gorny on 1/25/2017.
  */
-public class DistanceTest {
+public class DistanceTests {
 
   @Test
   public void testDistance(){
