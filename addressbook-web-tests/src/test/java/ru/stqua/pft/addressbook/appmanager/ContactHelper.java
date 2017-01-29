@@ -36,4 +36,15 @@ public class ContactHelper extends HelperBase{
   public void initAddNewContact() {
     click(By.linkText("add new"));
   }
+
+  public void selectContactFromTheList(int contactNumber) {
+    click(By.xpath("(//input[@name='selected[]'])[" + contactNumber + "]"));
+  }
+
+  public void deleteSelectedContant() {
+    click(By.xpath("//input[@value='Delete']"));
+    wd.switchTo().alert().accept();
+  }
+
+
 }
