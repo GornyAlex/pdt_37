@@ -11,11 +11,24 @@ public class ContactModificationTests extends TestBase {
   @Test
   public void testContactModification(){
     app.getNavigationHelper().gotoHomePage();
-    app.getContactHelper().editContactFromTheList(1);
-    app.getContactHelper().fillContactForm(new ContactData("Chuck", "Norris", "Walker", "Mr", "Texas Ranger", "Ryan", "444-555-6666", "cool@mail.com", "woker@mail.com", "www.homepage.com", null), false);
-    app.getContactHelper().updateContact();
+
+    if (! app.getContactHelper().isThereAContact()){
+      // create new contact
+      app.getContactHelper().createContact(new ContactData("Alex", "Gorny", "Cool Woker", "Mr", "GE", "New Orleans", "444-555-6666", "cool@mail.com", "woker@mail.com", "www.homepage.com", "test1"), true);
+      app.getNavigationHelper().gotoHomePage();
+      // modify created contact
+      app.getContactHelper().modifyContact(new ContactData("Chuck", "Norris", "Walker", "Mr", "Texas Ranger", "Ryan", "444-555-6666", "cool@mail.com", "woker@mail.com", "www.homepage.com", null), 1);
+      app.getNavigationHelper().gotoHomePage();
+      // delete previously created contact
+      app.getContactHelper().selectContactFromTheList(1);
+      app.getContactHelper().deleteSelectedContant();
+    } else {
+      app.getContactHelper().modifyContact(new ContactData("Chuck", "Norris", "Walker", "Mr", "Texas Ranger", "Ryan", "444-555-6666", "cool@mail.com", "woker@mail.com", "www.homepage.com", null), 1);
+    }
+
     app.getNavigationHelper().gotoHomePage();
 
   }
+
 
 }
