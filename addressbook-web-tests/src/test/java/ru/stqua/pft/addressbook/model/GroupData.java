@@ -14,8 +14,8 @@ package ru.stqua.pft.addressbook.model;
     this.footer = footer;
   }
 
-  public GroupData(String name, String header, String footer) {
-    this.id = 0;
+    public GroupData(String name, String header, String footer) {
+    this.id = Integer.MAX_VALUE;
     this.name = name;
     this.header = header;
     this.footer = footer;
@@ -49,23 +49,19 @@ package ru.stqua.pft.addressbook.model;
       this.id = id;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
 
-    GroupData groupData = (GroupData) o;
+      GroupData groupData = (GroupData) o;
 
-    if (id != groupData.id) return false;
-    return name != null ? name.equals(groupData.name) : groupData.name == null;
+      return header != null ? header.equals(groupData.header) : groupData.header == null;
+    }
+
+    @Override
+    public int hashCode() {
+      return header != null ? header.hashCode() : 0;
+    }
+
   }
-
-  @Override
-  public int hashCode() {
-    int result = id;
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    return result;
-  }
-
-
-}
