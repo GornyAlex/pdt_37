@@ -46,8 +46,8 @@ public class ContactHelper extends HelperBase{
     click(By.linkText("add new"));
   }
 
-  public void selectContactFromTheList(int contactNumber) {
-    click(By.xpath("(//input[@name='selected[]'])[" + contactNumber + "]"));
+  public void selectContactFromTheList(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void deleteSelectedContant() {
@@ -56,8 +56,8 @@ public class ContactHelper extends HelperBase{
   }
 
 
-  public void editContactFromTheList(int contactNumber) {
-    click(By.xpath("(//a/img[@title='Edit'])[" + contactNumber + "]"));
+  public void editContactFromTheList(int index) {
+    wd.findElements(By.xpath("//a/img[@title='Edit']")).get(index).click();
   }
 
   public void updateContact() {

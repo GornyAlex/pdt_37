@@ -19,7 +19,7 @@ public class ContactModificationTests extends TestBase {
       app.getNavigationHelper().gotoHomePage();
     }
     int before = app.getContactHelper().getContactCount();
-    app.getContactHelper().modifyContact(new ContactData("Chuck", "Norris", "Walker", "Mr", "Texas Ranger", "Ryan", "444-555-6666", "cool@mail.com", "woker@mail.com", "www.homepage.com", null), 1);
+    app.getContactHelper().modifyContact(new ContactData("Chuck", "Norris", "Walker", "Mr", "Texas Ranger", "Ryan", "444-555-6666", "cool@mail.com", "woker@mail.com", "www.homepage.com", null), before -1);
     app.getNavigationHelper().gotoHomePage();
     int after = app.getContactHelper().getContactCount();
 
