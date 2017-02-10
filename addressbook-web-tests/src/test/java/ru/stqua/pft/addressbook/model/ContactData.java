@@ -70,4 +70,30 @@ public class ContactData {
   public String getGroup() {
     return group;
   }
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "firsName='" + firsName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ContactData that = (ContactData) o;
+
+    if (firsName != null ? !firsName.equals(that.firsName) : that.firsName != null) return false;
+    return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = firsName != null ? firsName.hashCode() : 0;
+    result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+    return result;
+  }
 }
