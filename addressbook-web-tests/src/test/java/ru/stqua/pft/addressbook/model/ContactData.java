@@ -30,7 +30,7 @@ public class ContactData {
   }
 
   public ContactData( String firsName, String lastName, String nickname, String title, String company, String address, String mobilePhone, String email1, String email2, String urlHomePage, String group) {
-    this.id = 0;
+    this.id = Integer.MAX_VALUE;
     this.firsName = firsName;
     this.lastName = lastName;
     this.nickname = nickname;
@@ -113,15 +113,13 @@ public class ContactData {
 
     ContactData that = (ContactData) o;
 
-    if (id != that.id) return false;
     if (firsName != null ? !firsName.equals(that.firsName) : that.firsName != null) return false;
     return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
   }
 
   @Override
   public int hashCode() {
-    int result = id;
-    result = 31 * result + (firsName != null ? firsName.hashCode() : 0);
+    int result = firsName != null ? firsName.hashCode() : 0;
     result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
     return result;
   }
