@@ -56,12 +56,14 @@ package ru.stqua.pft.addressbook.model;
 
       GroupData groupData = (GroupData) o;
 
-      return header != null ? header.equals(groupData.header) : groupData.header == null;
+      if (id != groupData.id) return false;
+      return name != null ? name.equals(groupData.name) : groupData.name == null;
     }
 
     @Override
     public int hashCode() {
-      return header != null ? header.hashCode() : 0;
+      int result = name != null ? name.hashCode() : 0;
+      result = 31 * result + id;
+      return result;
     }
-
   }

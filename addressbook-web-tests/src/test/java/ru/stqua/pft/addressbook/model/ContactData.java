@@ -113,13 +113,15 @@ public class ContactData {
 
     ContactData that = (ContactData) o;
 
+    if (id != that.id) return false;
     if (firsName != null ? !firsName.equals(that.firsName) : that.firsName != null) return false;
     return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
   }
 
   @Override
   public int hashCode() {
-    int result = firsName != null ? firsName.hashCode() : 0;
+    int result = id;
+    result = 31 * result + (firsName != null ? firsName.hashCode() : 0);
     result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
     return result;
   }
