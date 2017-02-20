@@ -1,6 +1,7 @@
 package ru.stqua.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqua.pft.addressbook.model.ContactData;
 
@@ -11,24 +12,40 @@ import java.util.List;
  */
 public class ContactDeletionTests extends TestBase {
 
-  @Test(enabled = false)
-  public void testContactDeletion() {
-    app.goTo().gotoHomePage();
-    if (! app.getContactHelper().isThereAContact()){
-      app.getContactHelper().createContact(new ContactData("Alex", "Gorny", "Cool Woker", "Mr", "GE", "New Orleans", "444-555-6666", "cool@mail.com", "woker@mail.com", "www.homepage.com", "test1"), true);
-      app.goTo().gotoHomePage();
+  @BeforeMethod
+  public void ensurePreconditions(){
+    app.goTo().homePage();
+    if (app.contact().list().size() == 0){
+      app.contact().create(new ContactData()
+              .withFirsName("Alexander")
+              .withLastName("Gorny")
+              .withNickname("Cool Woker")
+              .withTitle("Mr")
+              .withCompany("General Electric")
+              .withAddress("New Orleans")
+              .withMobilePhone("444-555-6666")
+              .withEmail1("cool@mail.com")
+              .withEmail2("woker@mail.com")
+              .withUrlHomePage("www.homepage.com")
+              .withGroup("test1"),
+              true);
+      app.contact().gotoHomePage();
     }
-    List<ContactData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().selectContactFromTheList(before.size() - 1); //last contact
-    app.getContactHelper().deleteSelectedContant();
-    app.goTo().gotoHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
+  }
 
-    Assert.assertEquals(after.size(), before.size() - 1);
+  @Test
+  public void testContactDeletion() {
+    List<ContactData> before = app.contact().list();
+    int index = before.size() - 1;
+    app.contact().delete(index);
+    List<ContactData> after = app.contact().list();
 
-    before.remove(before.size() - 1);
+    Assert.assertEquals(after.size(), index);
+
+    before.remove(index);
     Assert.assertEquals(before, after);
 
 
   }
+
 }
