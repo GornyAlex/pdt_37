@@ -1,14 +1,9 @@
 package ru.stqua.pft.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqua.pft.addressbook.model.ContactData;
 import ru.stqua.pft.addressbook.model.Contacts;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,7 +26,7 @@ public class ContactDeletionTests extends TestBase {
               .withCompany("General Electric")
               .withAddress("New Orleans")
               .withMobilePhone("444-555-6666")
-              .withEmail1("cool@mail.com")
+              .withEmail("cool@mail.com")
               .withEmail2("woker@mail.com")
               .withUrlHomePage("www.homepage.com")
               .withGroup("test1"),

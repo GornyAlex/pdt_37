@@ -21,7 +21,7 @@ public class ContactCreationTests extends TestBase{
             .withCompany("General Electric")
             .withAddress("New Orleans")
             .withMobilePhone("444-555-6666")
-            .withEmail1("cool@mail.com")
+            .withEmail("cool@mail.com")
             .withEmail2("woker@mail.com")
             .withUrlHomePage("www.homepage.com")
             .withGroup("test1");
