@@ -37,16 +37,23 @@ public class ContactHelper extends HelperBase{
     type(By.name("lastname"), contactData.getLastName());
     type(By.name("nickname"), contactData.getNickname());
     type(By.name("title"), contactData.getTitle());
+    type(By.name("title"), contactData.getTitle());
     type(By.name("company"), contactData.getCompany());
     type(By.name("address"),contactData.getAddress());
+    type(By.name("home"), contactData.getHomePhone());
     type(By.name("mobile"), contactData.getMobilePhone());
+    type(By.name("work"), contactData.getWorkPhone());
     type(By.name("email"), contactData.getEmail());
-    type(By.name("title"), contactData.getTitle());
     type(By.name("email2"), contactData.getEmail2());
+    type(By.name("email3"), contactData.getEmail3());
 
-    if (creation){
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-    } else {
+    if (creation) {
+      if (contactData.getGroup() != null) {
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      } else {
+        Assert.assertTrue(isElementPresent(By.name("new_group")));
+      }
+    }else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
   }
@@ -166,5 +173,17 @@ public class ContactHelper extends HelperBase{
 //    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id='%s']", id))).click();
   }
 
+  public String contactInfoFromDetailsPage(ContactData contact) {
+    initContactDetailsById(contact.getId());
+    return wd.findElement(By.id("content")).getText();
+  }
+
+  private void initContactDetailsById(int id) {
+    WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+    WebElement row = checkbox.findElement(By.xpath("./../.."));
+    List<WebElement> cells = row.findElements(By.tagName("td"));
+    cells.get(6).findElement(By.tagName("a")).click();
+//    wd.findElement(By.cssSelector(String.format("a[href='view.php?id='%s']", id))).click();
+  }
 
 }

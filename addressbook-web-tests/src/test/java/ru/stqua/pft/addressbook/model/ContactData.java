@@ -18,6 +18,7 @@ public class ContactData {
   private String allEmails;
   private String urlHomePage;
   private String group;
+  private String allContactData;
 
   public int getId() {
     return id;
@@ -85,6 +86,10 @@ public class ContactData {
 
   public String getGroup() {
     return group;
+  }
+
+  public String allContactData() {
+    return allContactData;
   }
 
   public ContactData withFirsName(String firsName) {
@@ -164,6 +169,11 @@ public class ContactData {
 
   public ContactData withGroup(String group) {
     this.group = group;
+    return this;
+  }
+
+  public ContactData withAllContactData(String allContactData) {
+    this.allContactData = allContactData;
     return this;
   }
 
