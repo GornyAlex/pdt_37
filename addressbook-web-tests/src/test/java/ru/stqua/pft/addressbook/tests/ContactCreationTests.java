@@ -36,11 +36,11 @@ public class ContactCreationTests extends TestBase{
             before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
   }
 
-  @Test(enabled = false)
+  @Test
   public void testContactCreationWithPhoto() {
     app.goTo().homePage();
     Contacts before = app.contact().all();
-    File photo = new File("src/test/resources/500px-General_Electric_logo_svg.png");
+    File photo = new File("src/test/resources/ge.png");
     ContactData contact = new ContactData()
             .withFirsName("Alexander")
             .withLastName("Gorny")
@@ -57,12 +57,4 @@ public class ContactCreationTests extends TestBase{
 //            before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
   }
 
-  @Test
-  public void testCurrentDir(){
-    File currentDir = new File(".");
-    System.out.println(currentDir.getAbsolutePath());
-    File photo = new File("src/test/resources/500px-General_Electric_logo_svg.png");
-    System.out.println(photo.getAbsolutePath());
-    System.out.println(photo.exists());
-  }
 }
