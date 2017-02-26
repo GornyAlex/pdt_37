@@ -27,7 +27,7 @@ public class ContactDetailsTests extends TestBase {
                               "70112")
                       .withHomePhone("+1-444-543-2345")
                       .withMobilePhone("(375) 29 6 196 537")
-                      .withWorPhone("+1 555-345-876")
+                      .withWorkPhone("+1 555-345-876")
                       .withEmail("email@email.com")
                       .withEmail2("2email@2email.2com")
                       .withEmail3("3email@3email.3com"),

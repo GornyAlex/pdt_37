@@ -157,7 +157,7 @@ public class ContactHelper extends HelperBase{
             .withAddress(address)
             .withHomePhone(home)
             .withMobilePhone(mobile)
-            .withWorPhone(work)
+            .withWorkPhone(work)
             .withEmail(email.trim())
             .withEmail2(email2.trim())
             .withEmail3(email3.trim());

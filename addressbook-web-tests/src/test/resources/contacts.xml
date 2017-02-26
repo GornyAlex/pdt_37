@@ -1,0 +1,47 @@
+<list>
+  <contact>
+    <firsName>First Name 0</firsName>
+    <lastName>Last Name 0</lastName>
+    <nickname>Nickname 0</nickname>
+    <title>Title 0</title>
+    <company>Company 0</company>
+    <address>00 Street</address>
+    <homePhone>000-222-3333</homePhone>
+    <mobilePhone>222-000-3333</mobilePhone>
+    <workPhone>333-444-0000</workPhone>
+    <email>email0@mail0.com</email>
+    <email2>email1@mail1.com</email2>
+    <email3>email2@mail2.com</email3>
+    <urlHomePage>www.homepage0.com</urlHomePage>
+  </contact>
+  <contact>
+    <firsName>First Name 1</firsName>
+    <lastName>Last Name 1</lastName>
+    <nickname>Nickname 1</nickname>
+    <title>Title 1</title>
+    <company>Company 1</company>
+    <address>11 Street</address>
+    <homePhone>111-222-3333</homePhone>
+    <mobilePhone>222-111-3333</mobilePhone>
+    <workPhone>333-444-1111</workPhone>
+    <email>email1@mail1.com</email>
+    <email2>email2@mail2.com</email2>
+    <email3>email3@mail3.com</email3>
+    <urlHomePage>www.homepage1.com</urlHomePage>
+  </contact>
+  <contact>
+    <firsName>First Name 2</firsName>
+    <lastName>Last Name 2</lastName>
+    <nickname>Nickname 2</nickname>
+    <title>Title 2</title>
+    <company>Company 2</company>
+    <address>22 Street</address>
+    <homePhone>222-222-3333</homePhone>
+    <mobilePhone>222-222-3333</mobilePhone>
+    <workPhone>333-444-2222</workPhone>
+    <email>email2@mail2.com</email>
+    <email2>email3@mail3.com</email2>
+    <email3>email4@mail4.com</email3>
+    <urlHomePage>www.homepage2.com</urlHomePage>
+  </contact>
+</list>
