@@ -16,7 +16,7 @@ public class ContactModificationTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
     app.goTo().homePage();
-    if (app.contact().all().size() == 0){
+    if (app.db().contacts().size() == 0){
       app.contact().create(new ContactData()
               .withFirsName("Alexander")
               .withLastName("Gorny")
@@ -24,11 +24,14 @@ public class ContactModificationTests extends TestBase {
               .withTitle("Mr")
               .withCompany("General Electric")
               .withAddress("New Orleans")
+              .withHomePhone("")
               .withMobilePhone("444-555-6666")
+              .withWorkPhone("")
               .withEmail("cool@mail.com")
               .withEmail2("woker@mail.com")
+              .withEmail3("")
               .withUrlHomePage("www.homepage.com")
-              .withGroup("test1"),
+              .withGroup("test 1"),
               true);
       app.contact().gotoHomePage();
     }
@@ -36,23 +39,26 @@ public class ContactModificationTests extends TestBase {
 
   @Test
   public void testContactModification(){
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData()
             .withId(modifiedContact.getId())
             .withFirsName("Chuck")
             .withLastName("Norris")
             .withNickname("Walker")
-            .withTitle("Mr")
+            .withTitle("Sir")
             .withCompany("Texas Ranger")
-            .withAddress("Ryan")
+            .withAddress("Ryan, Texas")
+            .withHomePhone("")
             .withMobilePhone("123-321-1234")
+            .withWorkPhone("")
             .withEmail("cool@mail.com")
             .withEmail2("woker@mail.com")
-            .withUrlHomePage("www.homepage.com");
+            .withEmail3("")
+            .withUrlHomePage("www.chucknorris.com");
     app.contact().modify(contact);
     assertThat(app.contact().count(), equalTo(before.size()));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
 
     assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
   }

@@ -18,20 +18,22 @@ public class ContactDetailsTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
     app.goTo().homePage();
-    if (app.contact().all().size() == 0){
+    if (app.db().contacts().size() == 0){
       app.contact().create(new ContactData()
                       .withFirsName("Alexander")
                       .withLastName("Gorny")
-                      .withAddress("123 Some St.,\n" +
-                              "New Orleans, LA\n" +
-                              "70112")
-                      .withHomePhone("+1-444-543-2345")
-                      .withMobilePhone("(375) 29 6 196 537")
-                      .withWorkPhone("+1 555-345-876")
-                      .withEmail("email@email.com")
-                      .withEmail2("2email@2email.2com")
-                      .withEmail3("3email@3email.3com"),
-                     true);
+                      .withNickname("Cool Woker")
+                      .withTitle("Mr")
+                      .withCompany("General Electric")
+                      .withAddress("New Orleans")
+                      .withHomePhone("")
+                      .withMobilePhone("444-555-6666")
+                      .withWorkPhone("")
+                      .withEmail("cool@mail.com")
+                      .withEmail2("woker@mail.com")
+                      .withEmail3("")
+                      .withUrlHomePage("www.homepage.com"),
+              true);
       app.contact().gotoHomePage();
     }
   }
@@ -39,29 +41,36 @@ public class ContactDetailsTests extends TestBase {
   @Test
   public void testContactDetails(){
     app.goTo().homePage();
-    ContactData contact = app.contact().all().iterator().next();
+    ContactData contact = app.db().contacts().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
     String contactInfoDetailsPage = app.contact().contactInfoFromDetailsPage(contact);
 
-    assertThat(cleaned(contactInfoDetailsPage), equalTo(cleaned(mergeAllContactDataFromEditForm(contactInfoFromEditForm).toString())));
+    //contact data form db
+    assertThat(cleaned(contactInfoDetailsPage), equalTo(cleaned(mergeAllContactData(contact).toString())));
+
+    assertThat(cleaned(contactInfoDetailsPage), equalTo(cleaned(mergeAllContactData(contactInfoFromEditForm).toString())));
   }
 
-  private String mergeAllContactDataFromEditForm(ContactData contact) {
+  private String mergeAllContactData(ContactData contact) {
     return Arrays.asList(contact.getFirsName(),
             contact.getLastName(),
+            contact.getNickname(),
+            contact.getTitle(),
+            contact.getCompany(),
             contact.getAddress(),
             contact.getHomePhone(),
             contact.getMobilePhone(),
             contact.getWorkPhone(),
             contact.getEmail(),
             contact.getEmail2(),
-            contact.getEmail3())
+            contact.getEmail3(),
+            contact.getUrlHomePage())
             .stream().filter((s) -> ! s.equals(""))
             .map(ContactDetailsTests::cleaned)
             .collect(Collectors.joining("\n"));
   }
 
   public static String cleaned(String contact){
-    return contact.replaceAll("\\s","").replaceAll("[-()]","").replaceAll("(H:|M:|W:)","");
+    return contact.replaceAll("\\s","").replaceAll("[-()]","").replaceAll("(H:|M:|W:)","").replaceAll("Homepage:","");
   }
 }

@@ -37,7 +37,6 @@ public class ContactHelper extends HelperBase{
     type(By.name("lastname"), contactData.getLastName());
     type(By.name("nickname"), contactData.getNickname());
     type(By.name("title"), contactData.getTitle());
-    type(By.name("title"), contactData.getTitle());
     type(By.name("company"), contactData.getCompany());
     type(By.name("address"),contactData.getAddress());
     type(By.name("home"), contactData.getHomePhone());
@@ -46,6 +45,7 @@ public class ContactHelper extends HelperBase{
     type(By.name("email"), contactData.getEmail());
     type(By.name("email2"), contactData.getEmail2());
     type(By.name("email3"), contactData.getEmail3());
+    type(By.name("homepage"), contactData.getUrlHomePage());
     attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
@@ -143,6 +143,9 @@ public class ContactHelper extends HelperBase{
     initContactModificationById(contact.getId());
     String firstName = wd.findElement(By.name("firstname")).getAttribute("value");
     String lastName = wd.findElement(By.name("lastname")).getAttribute("value");
+    String nickNme = wd.findElement(By.name("nickname")).getAttribute("value");
+    String company = wd.findElement(By.name("company")).getAttribute("value");
+    String title = wd.findElement(By.name("title")).getAttribute("value");
     String address = wd.findElement(By.name("address")).getAttribute("value");
     String home = wd.findElement(By.name("home")).getAttribute("value");
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
@@ -150,17 +153,22 @@ public class ContactHelper extends HelperBase{
     String email = wd.findElement(By.name("email")).getAttribute("value");
     String email2 = wd.findElement(By.name("email2")).getAttribute("value");
     String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+    String homePage = wd.findElement(By.name("homepage")).getAttribute("value");
     wd.navigate().back();
     return new ContactData().withId(contact.getId())
             .withFirsName(firstName)
             .withLastName(lastName)
+            .withNickname(nickNme)
+            .withCompany(company)
+            .withTitle(title)
             .withAddress(address)
             .withHomePhone(home)
             .withMobilePhone(mobile)
             .withWorkPhone(work)
             .withEmail(email.trim())
             .withEmail2(email2.trim())
-            .withEmail3(email3.trim());
+            .withEmail3(email3.trim())
+            .withUrlHomePage(homePage.trim());
   }
 
   private void initContactModificationById(int id) {

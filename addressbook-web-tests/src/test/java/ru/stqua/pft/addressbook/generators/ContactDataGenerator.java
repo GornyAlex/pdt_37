@@ -103,7 +103,7 @@ public class ContactDataGenerator {
               .withCompany(String.format("Company %s", i))
               .withTitle(String.format("Title %s", i))
               .withAddress(String.format("%s%s Street", i, i))
-              .withHomePhone(String.format("%s%s%s-222-3333", i, i, i))
+              .withHomePhone(String.format("%s%s%s-222-3333", i+1, i+1, i+1))
               .withMobilePhone(String.format("222-%s%s%s-3333", i, i, i))
               .withWorkPhone(String.format("333-444-%s%s%s%s", i, i, i, i))
               .withEmail(String.format("email%s@mail%s.com", i, i))
