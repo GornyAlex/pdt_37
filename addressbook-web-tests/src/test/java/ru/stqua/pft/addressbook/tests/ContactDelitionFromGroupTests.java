@@ -14,37 +14,40 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * Created by Alexander Gorny on 3/12/2017.
  */
-public class ContactAddToGroupTests extends TestBase{
+public class ContactDelitionFromGroupTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions(){
+    Contacts contactsList = app.db().contacts();
+    Groups groupsList = app.db().groups();
+
+    app.goTo().homePage();
 
     if (app.db().groups().size() == 0) {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("Group for add a contact test"));
     } else {
       //ensure precondition:
-      //find a contact that not belongs to selected group
-      //otherwise create a new group
-      Contacts contactsList = app.db().contacts();
-      Groups groupsList = app.db().groups();
+      //is there a contact that  belongs to any group?
+      //otherwise add a contact to a group
       boolean groupFound = false;
       //I tried to do this with iterator and while loop, but was unable to fix infinitive loop
       for (ContactData contact : contactsList) {
         for (GroupData group : groupsList) {
-          if (!StringUtils.containsIgnoreCase(contact.getGroups().toString(), group.toString())) {
+          if (StringUtils.containsIgnoreCase(contact.getGroups().toString(), group.toString())) {
             groupFound = true;
             break;
           }
         }
       }
       if (!groupFound){
-        app.goTo().groupPage();
-        app.group().create(new GroupData().withName("New group for add a contact test"));
+        ContactData selectedContact = app.db().contacts().iterator().next();
+        GroupData selectedGroup = app.db().groups().iterator().next();
+        app.contact().addToGroup(selectedContact, selectedGroup);
       }
     }
 
-    app.goTo().homePage();
+    groupsList = app.db().groups();
     if (app.db().contacts().size() == 0){
       app.contact().create(new ContactData()
                       .withFirsName("Alexander")
@@ -59,19 +62,18 @@ public class ContactAddToGroupTests extends TestBase{
                       .withEmail("cool@mail.com")
                       .withEmail2("woker@mail.com")
                       .withEmail3("")
-                      .withUrlHomePage("www.homepage.com"),
+                      .withUrlHomePage("www.homepage.com")
+                      .inGroup(groupsList.iterator().next()),
               true);
       app.contact().gotoHomePage();
     }
   }
 
-
   @Test
-  public void testIfContactCouldBeAddedToGroup(){
+  public void testIfContactCouldBeDeletedFromGroup(){
     Contacts contactsList = app.db().contacts();
     Groups groupsList = app.db().groups();
 
-    //initialize selectedContact and selectedGroup to satisfy code check
     ContactData selectedContact = contactsList.iterator().next();
     GroupData selectedGroup = groupsList.iterator().next();
 
@@ -79,7 +81,7 @@ public class ContactAddToGroupTests extends TestBase{
     //I tried to do this with iterator and while loop, but was unable to fix infinitive loop
     for (ContactData contact : contactsList) {
       for (GroupData group : groupsList) {
-        if (!StringUtils.containsIgnoreCase(contact.getGroups().toString(), group.toString())) {
+        if (StringUtils.containsIgnoreCase(contact.getGroups().toString(), group.toString())) {
           selectedContact = contact;
           selectedGroup = group;
           break;
@@ -88,11 +90,10 @@ public class ContactAddToGroupTests extends TestBase{
     }
 
     app.contact().gotoHomePage();
-    app.contact().addToGroup(selectedContact, selectedGroup);
+    app.contact().deleteFromGroup(selectedContact, selectedGroup);
 
-    assertThat(app.db().contactById(selectedContact.getId()).iterator().next().getGroups(), equalTo(selectedContact.getGroups().withAdded(selectedGroup)));
+    assertThat(app.db().contactById(selectedContact.getId()).iterator().next().getGroups(), equalTo(selectedContact.getGroups().without(selectedGroup)));
 
   }
-
 
 }

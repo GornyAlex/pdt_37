@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by Alexander Gorny on 1/29/2017.
  */
-public class ContactHelper extends HelperBase{
+public class ContactHelper extends HelperBase {
 
 
   public ContactHelper(WebDriver wd) {
@@ -22,7 +22,7 @@ public class ContactHelper extends HelperBase{
   }
 
   public void gotoHomePage() {
-    if(isElementPresent(By.id("maintable"))){
+    if (isElementPresent(By.id("maintable"))) {
       return;
     }
     click(By.linkText("home"));
@@ -34,12 +34,12 @@ public class ContactHelper extends HelperBase{
 
   public void fillContactForm(ContactData contactData, boolean creation) {
 
-    type(By.name("firstname"),contactData.getFirsName());
+    type(By.name("firstname"), contactData.getFirsName());
     type(By.name("lastname"), contactData.getLastName());
     type(By.name("nickname"), contactData.getNickname());
     type(By.name("title"), contactData.getTitle());
     type(By.name("company"), contactData.getCompany());
-    type(By.name("address"),contactData.getAddress());
+    type(By.name("address"), contactData.getAddress());
     type(By.name("home"), contactData.getHomePhone());
     type(By.name("mobile"), contactData.getMobilePhone());
     type(By.name("work"), contactData.getWorkPhone());
@@ -56,7 +56,7 @@ public class ContactHelper extends HelperBase{
       } else {
         Assert.assertTrue(isElementPresent(By.name("new_group")));
       }
-    }else {
+    } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
   }
@@ -70,10 +70,19 @@ public class ContactHelper extends HelperBase{
     wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
-  public void SelectedGroupById(int id) {
+  public void selectGroupById(int id) {
     Select dropdown = new Select(wd.findElement(By.cssSelector("select[name='to_group']")));
     dropdown.selectByValue("" + id);
     click(By.name("add"));
+  }
+
+  public void filterContactsByGroupId(int id) {
+    Select dropdown = new Select(wd.findElement(By.cssSelector("select[name='group']")));
+    dropdown.selectByValue("" + id);
+  }
+
+  public void removeContactFromGroup() {
+    click(By.cssSelector("input[name='remove']"));
   }
 
   public void deleteSelectedContact() {
@@ -86,7 +95,7 @@ public class ContactHelper extends HelperBase{
   }
 
   public void updateContact() {
-      click(By.name("update"));
+    click(By.name("update"));
   }
 
   public void create(ContactData contact, boolean creation) {
@@ -113,7 +122,15 @@ public class ContactHelper extends HelperBase{
 
   public void addToGroup(ContactData contact, GroupData group) {
     selectContactById(contact.getId());
-    SelectedGroupById(group.getId());
+    selectGroupById(group.getId());
+    contactCache = null;
+    gotoHomePage();
+  }
+
+  public void deleteFromGroup(ContactData contact, GroupData group) {
+    filterContactsByGroupId(group.getId());
+    selectContactById(contact.getId());
+    removeContactFromGroup();
     contactCache = null;
     gotoHomePage();
   }
@@ -129,13 +146,13 @@ public class ContactHelper extends HelperBase{
   private Contacts contactCache = null;
 
   public Contacts all() {
-    if (contactCache != null){
+    if (contactCache != null) {
       return new Contacts(contactCache);
     }
 
     contactCache = new Contacts();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
-    for (WebElement element : elements){
+    for (WebElement element : elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       String lastName = cells.get(1).getText();
