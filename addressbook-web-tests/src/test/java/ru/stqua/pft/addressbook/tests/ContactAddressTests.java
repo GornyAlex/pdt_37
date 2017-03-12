@@ -30,7 +30,7 @@ public class ContactAddressTests extends TestBase {
                       .withEmail2("woker@mail.com")
                       .withEmail3("")
                       .withUrlHomePage("www.homepage.com")
-                      .withGroup("test 1"),
+                      .inGroup(app.db().groups().iterator().next()),
               true);
       app.contact().gotoHomePage();
     }

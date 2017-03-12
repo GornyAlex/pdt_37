@@ -32,8 +32,8 @@ public class ContactPhoneTests extends TestBase {
                       .withEmail("cool@mail.com")
                       .withEmail2("woker@mail.com")
                       .withEmail3("")
-                      .withUrlHomePage("www.homepage.com")
-                      .withGroup("test 1"),
+                      .withUrlHomePage("www.homepage.com"),
+//                      .withGroup("test 1"),
               true);
       app.contact().gotoHomePage();
     }

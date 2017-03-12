@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.stqua.pft.addressbook.model.ContactData;
 import ru.stqua.pft.addressbook.model.Contacts;
 import ru.stqua.pft.addressbook.model.GroupData;
+import ru.stqua.pft.addressbook.model.Groups;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -89,18 +90,22 @@ public class ContactCreationTests extends TestBase{
 
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+
+    verifyContactListInUI();
   }
 
   @Test (enabled = false)
   public void testContactCreationWithPhoto() {
-    app.goTo().homePage();
-    Contacts before = app.db().contacts();
+    Groups groups = app.db().groups();
     File photo = new File("src/test/resources/ge.png");
-    ContactData contact = new ContactData()
+    ContactData newContact = new ContactData()
             .withFirsName("Alexander")
             .withLastName("Gorny")
-            .withPhoto(photo);
-    app.contact().create(contact, true);
+            .withPhoto(photo)
+            .inGroup(groups.iterator().next());
+    app.goTo().homePage();
+    Contacts before = app.db().contacts();
+    app.contact().create(newContact, true);
     app.contact().gotoHomePage();
 
 //    assertThat(app.contact().count(), equalTo(before.size() + 1));

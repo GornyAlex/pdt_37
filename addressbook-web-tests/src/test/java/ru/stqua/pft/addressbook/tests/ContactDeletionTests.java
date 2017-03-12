@@ -31,8 +31,8 @@ public class ContactDeletionTests extends TestBase {
                       .withEmail("cool@mail.com")
                       .withEmail2("woker@mail.com")
                       .withEmail3("")
-                      .withUrlHomePage("www.homepage.com")
-                      .withGroup("test 1"),
+                      .withUrlHomePage("www.homepage.com"),
+//                      .withGroup("test 1"),
               true);
       app.contact().gotoHomePage();
     }
@@ -47,6 +47,7 @@ public class ContactDeletionTests extends TestBase {
     Contacts after = app.db().contacts();
 
     assertThat(after, equalTo(before.without(deletedContact)));
+    verifyContactListInUI();
   }
 
 }
