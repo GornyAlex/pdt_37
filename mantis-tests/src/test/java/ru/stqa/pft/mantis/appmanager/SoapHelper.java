@@ -26,19 +26,19 @@ public class SoapHelper {
 
   public Set<Project> getProjects() throws MalformedURLException, ServiceException, RemoteException {
     MantisConnectPortType mc = getMantisConnect();
-    ProjectData[] projects = mc.mc_projects_get_user_accessible("administrator", "root");
+    ProjectData[] projects = mc.mc_projects_get_user_accessible(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
     return Arrays.asList(projects).stream()
             .map((p) -> new Project().withId(p.getId().intValue()).withName(p.getName()))
             .collect(Collectors.toSet());
   }
 
-  private MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
+
+  public MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
 //    return new MantisConnectLocator()
 //            .getMantisConnectPort(new URL("http://localhost/mantisbt-2.2.0/api/soap/mantisconnect.php"));
     return new MantisConnectLocator()
-            .getMantisConnectPort(new URL("http://mantis.stqa.ru/api/soap/mantisconnect.php"));
+            .getMantisConnectPort(new URL(app.getProperty("mantis.soapUrl")));
   }
-
 
   public Issue addIssue(Issue issue) throws MalformedURLException, ServiceException, RemoteException {
     MantisConnectPortType mc = getMantisConnect();
@@ -54,6 +54,18 @@ public class SoapHelper {
             .withSummary(createdIssueData.getSummary()).withDescription(createdIssueData.getDescription())
             .withProject(new Project().withId(createdIssueData.getProject().getId().intValue())
                     .withName(createdIssueData.getProject().getName()));
+  }
+
+
+  public Set<Issue> getIssues(Project pr) throws RemoteException, MalformedURLException, ServiceException {
+    MantisConnectPortType mc = getMantisConnect();
+    IssueData[] issues = mc.mc_project_get_issues(app.getProperty("web.adminLogin"),
+            app.getProperty("web.adminPassword"), BigInteger.valueOf(pr.getId())
+            , BigInteger.valueOf(1), BigInteger.valueOf(10));
+    return Arrays.asList(issues).stream()
+            .map((i) -> new Issue().withId(i.getId().intValue()).withSummary(i.getSummary())
+                    .withStatus(i.getStatus().getName()).withDescription(i.getDescription()))
+            .collect(Collectors.toSet());
   }
 }
 

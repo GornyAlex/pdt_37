@@ -34,4 +34,11 @@ public class SoapTests extends TestBase{
     Issue created = app.soap().addIssue(issue);
     assertEquals(issue.getSummary(), created.getSummary());
   }
+
+  @Test
+  public void testIfYouCanRunTestcase() throws RemoteException, ServiceException, MalformedURLException {
+    int issueId = 37;
+    skipIfNotFixed(issueId);
+    System.out.println("Issue #" + issueId + " was closed. You can run this test.");
+  }
 }
