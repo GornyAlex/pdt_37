@@ -41,4 +41,15 @@ public class SoapTests extends TestBase{
     skipIfNotFixed(issueId);
     System.out.println("Issue #" + issueId + " was closed. You can run this test.");
   }
+
+  @Test
+  public void testGetIssues() throws RemoteException, ServiceException, MalformedURLException {
+    Set<Project> projects = app.soap().getProjects();
+    Set<Issue> issues = app.soap().getIssues(projects.iterator().next());
+    System.out.println(issues.size());
+    for (Issue issue : issues) {
+      System.out.println("Issue #" + issue.getId() + " has status " + issue.getStatus().toString());
+    }
+  }
+
 }
