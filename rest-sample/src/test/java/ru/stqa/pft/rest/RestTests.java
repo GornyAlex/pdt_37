@@ -8,6 +8,7 @@ import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
 import org.testng.annotations.Test;
+import ru.stqa.pft.model.Issue;
 
 import java.io.IOException;
 import java.util.Set;
@@ -15,7 +16,7 @@ import java.util.Set;
 import static org.testng.Assert.assertEquals;
 
 /**
- * Created by Alexander Gorny on 3/22/2017.
+ * Created by Alexander Gorny on 3/23/2017.
  */
 
 public class RestTests {

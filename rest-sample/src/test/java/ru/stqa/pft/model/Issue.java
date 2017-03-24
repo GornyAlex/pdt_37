@@ -1,8 +1,6 @@
-package ru.stqa.pft.rest;
+package ru.stqa.pft.model;
 
-/**
- * Created by Alexander Gorny on 3/22/2017.
- */
+
 public class Issue {
 
   private int id;
