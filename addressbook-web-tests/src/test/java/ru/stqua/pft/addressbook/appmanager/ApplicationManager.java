@@ -45,18 +45,19 @@ public class ApplicationManager {
 
     dbHelper = new DbHelper();
 
-    if("".equals(properties.getProperty("selenium.server"))){
-      if (Objects.equals(browser, BrowserType.FIREFOX)){
+    if("".equals(properties.getProperty("selenium.server"))) {
+      if (Objects.equals(browser, BrowserType.FIREFOX)) {
         wd = new FirefoxDriver();
-      } else if (Objects.equals(browser, BrowserType.CHROME)){
+      } else if (Objects.equals(browser, BrowserType.CHROME)) {
         wd = new ChromeDriver();
       } else if (Objects.equals(browser, BrowserType.IE)) {
         wd = new InternetExplorerDriver();
+      }
     } else {
-       DesiredCapabilities capabilities = new DesiredCapabilities();
+        DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName((browser));
-        wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities)
-      }Capabilities
+        wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
+    }
 
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wd.get(properties.getProperty("web.baseUrl"));
